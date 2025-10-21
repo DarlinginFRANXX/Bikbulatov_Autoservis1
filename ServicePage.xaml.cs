@@ -277,6 +277,11 @@ namespace Bikbulatov_Autoservis
                 ServiceListView.ItemsSource = Бикбулатов_АвтосервисEntities.GetContext().Service.ToList();
             }
         }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            manager.MainFrame.Navigate(new SignUpPage((sender as Button).DataContext as Service));
+        }
     }
 }
 

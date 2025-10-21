@@ -11,6 +11,7 @@ namespace Bikbulatov_Autoservis
 {
     using System;
     using System.Collections.Generic;
+    using System.Windows.Media;
 
     public partial class Service
     {
@@ -41,7 +42,51 @@ namespace Bikbulatov_Autoservis
             }
         }
 
-         
+        public string OldCost
+        {
+            get
+            {
+                if (Discount > 0)
+                {
+                    return Cost.ToString();
+                }
+                else
+                {
+                    return "";
+                }
+            }
+        }
+
+        public decimal NewCost
+        {
+            get
+            {
+                if (Discount > 0)
+                {
+                    return (decimal)Cost - (decimal)Cost * (decimal)Discount / 100;
+                }
+                else
+                {
+                    return (decimal)Cost;
+                }
+            }
+        }
+
+        public SolidColorBrush FonStyle
+        {
+            get
+            {
+                if (Discount > 0)
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("LightGreen");
+                }
+                else
+                {
+                    return (SolidColorBrush)new BrushConverter().ConvertFromString("White");
+                }
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientService> ClientService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

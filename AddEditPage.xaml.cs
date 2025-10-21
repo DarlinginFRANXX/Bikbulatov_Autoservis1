@@ -42,31 +42,44 @@ namespace Bikbulatov_Autoservis
             if (_currentService.Cost == 0)
                 errors.AppendLine("Укажите стоимость услуги");
 
-            if (_currentService.Discount < 0)
-            {
-                errors.AppendLine("Укажите скидку");
-            }
-
-            if (_currentService.Duration < 0)
+            if (_currentService.Duration == 0)
                 errors.AppendLine("Укажите длительность услуги");
+
+            if (_currentService.Duration > 240)
+                errors.AppendLine("Длительность не может быть больше 240 минут");
+
+            if (_currentService.Discount < 0 || _currentService.Discount > 100)
+                errors.AppendLine("Укажите скидку от 0 до 100");
             if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
                 return;
             }
+            var allServices = Бикбулатов_АвтосервисEntities.GetContext().Service
+    .Where(p => p.Title == _currentService.Title && p.ID != _currentService.ID)
+    .ToList();
 
-            if (_currentService.ID == 0)
-                Бикбулатов_АвтосервисEntities.GetContext().Service.Add(_currentService);
-
-            try
+            // Проверяем, есть ли услуга с таким названием, кроме текущей (для редактирования)
+            if (allServices.Count == 0)
             {
-                Бикбулатов_АвтосервисEntities.GetContext().SaveChanges();
-                MessageBox.Show("информация сохранена");
-                manager.MainFrame.GoBack();
+                if (_currentService.ID == 0)
+                    Бикбулатов_АвтосервисEntities.GetContext().Service.Add(_currentService);
+
+                try
+                {
+                    Бикбулатов_АвтосервисEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Информация сохранена");
+                    manager.MainFrame.GoBack();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("Уже существует такая услуга");
+                manager.MainFrame.GoBack();
             }
         }
     }
