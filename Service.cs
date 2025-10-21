@@ -29,7 +29,6 @@ namespace Bikbulatov_Autoservis
         public Nullable<double> Discount { get; set; }
         public string Description { get; set; }
 
-
         public int DiscountIt
         {
             get
