@@ -116,7 +116,7 @@ namespace Bikbulatov_Autoservis
 
             }
         }
-
+         
         public ServicePage()
         {
             InitializeComponent();

@@ -30,7 +30,7 @@ namespace Bikbulatov_Autoservis
             DataContext = _currentService;
         }
 
-
+         
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
