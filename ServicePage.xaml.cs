@@ -120,7 +120,6 @@ namespace Bikbulatov_Autoservis
         public ServicePage()
         {
             InitializeComponent();
-
             var currentServices = Бикбулатов_АвтосервисEntities.GetContext().Service.ToList();
             ServiceListView.ItemsSource = currentServices; 
             ComboType.SelectedIndex = 0;
